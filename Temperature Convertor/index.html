@@ -1,25 +1,54 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Temperature Conversion</title>
-    <!--Google font-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
-    <!--Stylesheet-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Temperature Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 style="text-align: center; padding-top:30px; font-size: larger;"><u>Temperature Converter</u></h1>
-    <div class="wrapper">
-       
-        <div class="container">
-            <label for="celsius">Celsius</label>
-            <input type="number" id="celsius" oninput= "celToFar()">
-        </div>
-        <div class="container">
-            <label for="fahrenheit">Fahrenheit</label>
-            <input type="number" id="fahrenheit" oninput = "farToCel()">
-        </div>
+    <div class="background">
+        <div class="animation"></div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="container">
+        <h1 class="title">Temperature Converter</h1>
+        <div class="converter">
+            <input type="number" id="temp-input" class="neon-input" placeholder="Enter Temperature">
+            <select id="unit-from" class="neon-select">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+            </select>
+            <button onclick="convertTemperature()" class="neon-button">Convert</button>
+            <select id="unit-to" class="neon-select">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+            </select>
+        </div>
+        <h2 class="result" id="result">Converted Temperature: --</h2>
+    </div>
+
+    <script >
+function convertTemperature() {
+    const tempInput = document.getElementById('temp-input').value;
+    const unitFrom = document.getElementById('unit-from').value;
+    const unitTo = document.getElementById('unit-to').value;
+    const resultDisplay = document.getElementById('result');
+    
+    let convertedTemp;
+
+    if (unitFrom === unitTo) {
+        convertedTemp = tempInput;
+    } else if (unitFrom === 'celsius' && unitTo === 'fahrenheit') {
+        convertedTemp = (tempInput * 9/5) + 32;
+    } else if (unitFrom === 'fahrenheit' && unitTo === 'celsius') {
+        convertedTemp = (tempInput - 32) * 5/9;
+    }
+
+    resultDisplay.textContent = `Converted Temperature: ${convertedTemp.toFixed(2)}° ${unitTo.charAt(0).toUpperCase() + unitTo.slice(1)}`;
+}
+
+
+    </script>
 </body>
 </html>
